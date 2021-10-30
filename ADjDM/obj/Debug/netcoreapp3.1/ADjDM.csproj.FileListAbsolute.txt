@@ -1,0 +1,14 @@
+C:\Users\Ilias\Source\Repos\ADjDM\ADjDM\bin\Debug\netcoreapp3.1\ADjDM.exe
+C:\Users\Ilias\Source\Repos\ADjDM\ADjDM\bin\Debug\netcoreapp3.1\ADjDM.deps.json
+C:\Users\Ilias\Source\Repos\ADjDM\ADjDM\bin\Debug\netcoreapp3.1\ADjDM.runtimeconfig.json
+C:\Users\Ilias\Source\Repos\ADjDM\ADjDM\bin\Debug\netcoreapp3.1\ADjDM.runtimeconfig.dev.json
+C:\Users\Ilias\Source\Repos\ADjDM\ADjDM\bin\Debug\netcoreapp3.1\ADjDM.dll
+C:\Users\Ilias\Source\Repos\ADjDM\ADjDM\bin\Debug\netcoreapp3.1\ADjDM.pdb
+C:\Users\Ilias\Source\Repos\ADjDM\ADjDM\obj\Debug\netcoreapp3.1\ADjDM.csproj.AssemblyReference.cache
+C:\Users\Ilias\Source\Repos\ADjDM\ADjDM\obj\Debug\netcoreapp3.1\ADjDM.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Ilias\Source\Repos\ADjDM\ADjDM\obj\Debug\netcoreapp3.1\ADjDM.AssemblyInfoInputs.cache
+C:\Users\Ilias\Source\Repos\ADjDM\ADjDM\obj\Debug\netcoreapp3.1\ADjDM.AssemblyInfo.cs
+C:\Users\Ilias\Source\Repos\ADjDM\ADjDM\obj\Debug\netcoreapp3.1\ADjDM.csproj.CoreCompileInputs.cache
+C:\Users\Ilias\Source\Repos\ADjDM\ADjDM\obj\Debug\netcoreapp3.1\ADjDM.dll
+C:\Users\Ilias\Source\Repos\ADjDM\ADjDM\obj\Debug\netcoreapp3.1\ADjDM.pdb
+C:\Users\Ilias\Source\Repos\ADjDM\ADjDM\obj\Debug\netcoreapp3.1\ADjDM.genruntimeconfig.cache
