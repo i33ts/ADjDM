@@ -1,8 +1,9 @@
 {
   "ExpandedNodes": [
     "",
-    "\\ADjDM"
+    "\\ADjDM",
+    "\\ADjDM\\obj"
   ],
-  "SelectedNode": "\\ADjDM\\Form1.cs",
+  "SelectedNode": "\\ADjDM\\ADjDM.csproj",
   "PreviewInSolutionExplorer": false
 }
