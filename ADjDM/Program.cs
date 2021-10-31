@@ -15,7 +15,6 @@ namespace ADjDM
             Application.SetHighDpiMode(HighDpiMode.SystemAware);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            //  Application.Run(new Form1());
             Application.Run(new MyCustomApplicationContext());
         }
 
@@ -72,7 +71,7 @@ namespace ADjDM
                     ToolStripMenuItem connectivitysubMenu = new ToolStripMenuItem();
                     connectivitysubMenu.Text = "Check Network Health";
                     connectivitysubMenu.Image = Resources.lan.ToBitmap();
-                    connectivitysubMenu.DropDownItems.Add("NIC disconnects", Resources.disconnects.ToBitmap());
+                    connectivitysubMenu.DropDownItems.Add("NIC Disconnects", Resources.disconnects.ToBitmap());
                     connectivitysubMenu.DropDownItems.Add("CRC Errors", Resources.crc.ToBitmap());
                     connectivitysubMenu.DropDownItems.Add("Packet Retransmissions", Resources.retransmit.ToBitmap());
                 connectivityMenu.DropDownItems.Add(connectivitysubMenu);
