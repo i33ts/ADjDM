@@ -35,7 +35,7 @@ namespace ADjDM
 
             // Test using complexity class
 
-            MessageBox.Show("Your passwords is" + hasBeenPawned.ToString() + "!", "Password Strength");
+            MessageBox.Show("Your passwords has been pawned: " + hasBeenPawned.ToString(), "Password Strength");
         }
 
         /*
