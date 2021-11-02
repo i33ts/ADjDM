@@ -1,6 +1,7 @@
 using ADjDM.Properties;
 using System;
 using System.Windows.Forms;
+using System.Net;
 
 namespace ADjDM
 {
@@ -31,7 +32,7 @@ namespace ADjDM
                 userMenu.Text = "User";
                 userMenu.Image = Resources.user.ToBitmap();
                 userMenu.DropDownItems.Add("Check Password Health", Resources.key.ToBitmap(), this.CheckPasswordHealth_Click);
-                userMenu.DropDownItems.Add("Check Password Strength", Resources.keylock.ToBitmap());
+                userMenu.DropDownItems.Add("Check Password Strength", Resources.keylock.ToBitmap(), this.CheckPasswordStrength_Click);
                 userMenu.DropDownItems.Add("Show User Information", Resources.info.ToBitmap());
                 userMenu.DropDownItems.Add("Show Local Admin Indicator", Resources.admin.ToBitmap());
                 // Computer Menu
@@ -110,6 +111,11 @@ namespace ADjDM
             void CheckPasswordHealth_Click(object sender, EventArgs e)
             {
                 User.CheckPasswordHealth();
+            }
+
+            void CheckPasswordStrength_Click(object sender, EventArgs e)
+            {
+                User.CheckPasswordStrength(CredentialCache.DefaultNetworkCredentials.Password);
             }
 
         }
