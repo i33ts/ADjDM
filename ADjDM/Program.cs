@@ -2,6 +2,7 @@ using ADjDM.Properties;
 using System;
 using System.Windows.Forms;
 using System.Net;
+using System.Drawing;
 
 namespace ADjDM
 {
@@ -115,7 +116,39 @@ namespace ADjDM
 
             void CheckPasswordStrength_Click(object sender, EventArgs e)
             {
-                User.CheckPasswordStrength(CredentialCache.DefaultNetworkCredentials.Password);
+                // Create From
+                Form passForm = new Form();
+                passForm.Text = "Check your Password";
+                passForm.Icon = Resources.keylock;
+                passForm.MinimizeBox = false;
+                passForm.MaximizeBox = false;
+                passForm.Size = new Size(200, 100);
+                passForm.FormBorderStyle = FormBorderStyle.Fixed3D;
+                passForm.StartPosition = FormStartPosition.CenterScreen;
+                // Create Password TextBox
+                TextBox passBox = new TextBox();
+                passBox.Text = "";
+                passBox.PasswordChar = '*';
+                passBox.Location = new Point(40, 0);
+                // Create Button Check
+                Button checkBtn = new Button();
+                checkBtn.Text = "Check";
+                checkBtn.Location = new Point(50, 25);
+                checkBtn.Visible = true;
+                checkBtn.BringToFront();
+                checkBtn.Click += CheckBtn_Click;
+                // Add controls to From
+                passForm.Controls.Add(passBox);
+                passForm.Controls.Add(checkBtn);
+
+                passForm.Show();
+
+                void CheckBtn_Click(object sender, EventArgs e)
+                {
+                    string passToCheck = passBox.Text;
+                    passForm.Dispose();
+                    User.CheckPasswordStrength(passToCheck);
+                }
             }
 
         }

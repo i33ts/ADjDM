@@ -5,6 +5,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.Net;
 using System.IO;
+using System.Text.RegularExpressions;
 
 namespace ADjDM
 {
@@ -32,53 +33,58 @@ namespace ADjDM
 
             // Search for the rest of hash characters in the result
             bool hasBeenPawned = pawnedPwds.Contains(pwdHashRest, StringComparison.OrdinalIgnoreCase);
+            int passComplexityScore = CheckComplexity(input);
 
             // Test using complexity class
 
-            MessageBox.Show("Your passwords has been pawned: " + hasBeenPawned.ToString(), "Password Strength");
+            string complexityResult = String.Empty;
+            if (passComplexityScore == 0)
+                complexityResult = "Very Weak";
+            if (passComplexityScore == 1)
+                complexityResult = "Weak";
+            if (passComplexityScore == 2)
+                complexityResult = "Fair";
+            if (passComplexityScore == 3)
+                complexityResult = "Good";
+            if (passComplexityScore == 4)
+                complexityResult = "Strong";
+            if (passComplexityScore == 5)
+                complexityResult = "Excellent";
+
+            if (passComplexityScore > 2 && !hasBeenPawned)
+                MessageBox.Show("Your passwords strength is: " + complexityResult + "\nIt hasn't been leaked before.\nIt is safe to keep your password.", "Password Strength");
+            if (passComplexityScore < 2 && !hasBeenPawned)
+                MessageBox.Show("Your passwords strength is: " + complexityResult + "\nIt hasn't been leaked before.\nYou should change to a more complex password.", "Password Strength");
+            if (passComplexityScore > 2 && hasBeenPawned)
+                MessageBox.Show("Your passwords strength is: " + complexityResult + "\nAlthough it has been leaked before!\nYou should change to a more safe password.", "Password Strength");
+            if (passComplexityScore < 2 && hasBeenPawned)
+                MessageBox.Show("Your passwords strength is: " + complexityResult + "\nMoreover it has been leaked before!\nYou should change to a more safe password immediately!", "Password Strength");
         }
 
-        /*
-         * using System.Text;
-           using System.Text.RegularExpressions;
+        private static int CheckComplexity(string password)
+        {
+            int score = 0;
 
-            public enum PasswordScore
-            {
-                Blank = 0,
-                VeryWeak = 1,
-                Weak = 2,
-                Medium = 3,
-                Strong = 4,
-                VeryStrong = 5
-            }
+            if (password.Length < 1)
+                return 0;
+            if (password.Length < 4)
+                return 1;
+            if (password.Length >= 8)
+                score++;
+            if (password.Length >= 12)
+                score++;
+            if (Regex.Match(password, @".*\d").Success)
+                score++;
+            if (Regex.Match(password, @".*[a-z]").Success &&
+                Regex.Match(password, @".*[A-Z]").Success)
+                score++;
+            if (Regex.Match(password, @".*[!#$%&'()*+,-./:;<=>?@[\]^_`{|}~]").Success)
+                score++;
 
-            public class PasswordAdvisor
-            {
-                public static PasswordScore CheckStrength(string password)
-                {
-                    int score = 0;
+            return score;
+        }
 
-                    if (password.Length < 1)
-                        return PasswordScore.Blank;
-                    if (password.Length < 4)
-                        return PasswordScore.VeryWeak;
-                    if (password.Length >= 8)
-                        score++;
-                    if (password.Length >= 12)
-                        score++;
-                    if (Regex.Match(password, @"/\d+/", RegexOptions.ECMAScript).Success)
-                        score++;
-                    if (Regex.Match(password, @"/[a-z]/", RegexOptions.ECMAScript).Success &&
-                        Regex.Match(password, @"/[A-Z]/", RegexOptions.ECMAScript).Success)
-                        score++;
-                    if (Regex.Match(password, @"/.[!,@,#,$,%,^,&,*,?,_,~,-,£,(,)]/", RegexOptions.ECMAScript).Success)
-                        score++;
-
-                    return (PasswordScore)score;
-                }
-            }*/
-
-            private static string GetPasswordHash(string input)
+        private static string GetPasswordHash(string input)
         {
             using (SHA1Managed sha1 = new SHA1Managed())
             {
