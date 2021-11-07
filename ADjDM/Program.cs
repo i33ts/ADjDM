@@ -35,7 +35,7 @@ namespace ADjDM
                 userMenu.DropDownItems.Add("Check Password Health", Resources.key.ToBitmap(), this.CheckPasswordHealth_Click);
                 userMenu.DropDownItems.Add("Check Password Strength", Resources.keylock.ToBitmap(), this.CheckPasswordStrength_Click);
                 userMenu.DropDownItems.Add("Show User Information", Resources.info.ToBitmap());
-                userMenu.DropDownItems.Add("Show Local Admin Indicator", Resources.admin.ToBitmap());
+                userMenu.DropDownItems.Add("Show Local Admin Indicator", Resources.admin.ToBitmap(), this.CheckLocalAdmin_Click);
                 // Computer Menu
                 ToolStripMenuItem computerMenu = new ToolStripMenuItem();
                 computerMenu.Text = "Computer";
@@ -112,6 +112,11 @@ namespace ADjDM
             void CheckPasswordHealth_Click(object sender, EventArgs e)
             {
                 User.CheckPasswordHealth();
+            }
+
+            void CheckLocalAdmin_Click(object sender, EventArgs e) 
+            {
+                User.CheckLocalAdmin();
             }
 
             void CheckPasswordStrength_Click(object sender, EventArgs e)

@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Security.Cryptography;
+using System.Security.Principal;
 using System.Text;
 using System.Windows.Forms;
 using System.Net;
 using System.IO;
 using System.Text.RegularExpressions;
+using System.Security.Claims;
 
 namespace ADjDM
 {
@@ -16,7 +18,22 @@ namespace ADjDM
             MessageBox.Show("Your passwords health is ok!", "Password Health");
         }
 
-        public static void CheckPasswordStrength(string input) 
+        public static void CheckLocalAdmin()
+        {
+            WindowsIdentity identity = WindowsIdentity.GetCurrent();
+            if (identity != null)
+            {
+                WindowsPrincipal principal = new WindowsPrincipal(identity);
+                List<Claim> list = new List<Claim>(principal.UserClaims);
+                Claim c = list.Find(p => p.Value.Contains("S-1-5-32-544"));
+                if (c != null)
+                    MessageBox.Show("Current user is Local Admin!", "Check Local Admin");
+                else
+                    MessageBox.Show("Current user is Not Local Admin!", "Check Local Admin");
+            }
+        }
+
+        public static void CheckPasswordStrength(string input)
         {
             string pwdHash = GetPasswordHash(input);
             string pwdHashFirst5 = pwdHash.Substring(0, 5);
@@ -53,11 +70,11 @@ namespace ADjDM
 
             if (passComplexityScore > 2 && !hasBeenPawned)
                 MessageBox.Show("Your passwords strength is: " + complexityResult + "\nIt hasn't been leaked before.\nIt is safe to keep your password.", "Password Strength");
-            if (passComplexityScore < 2 && !hasBeenPawned)
+            if (passComplexityScore <= 2 && !hasBeenPawned)
                 MessageBox.Show("Your passwords strength is: " + complexityResult + "\nIt hasn't been leaked before.\nYou should change to a more complex password.", "Password Strength");
             if (passComplexityScore > 2 && hasBeenPawned)
                 MessageBox.Show("Your passwords strength is: " + complexityResult + "\nAlthough it has been leaked before!\nYou should change to a more safe password.", "Password Strength");
-            if (passComplexityScore < 2 && hasBeenPawned)
+            if (passComplexityScore <= 2 && hasBeenPawned)
                 MessageBox.Show("Your passwords strength is: " + complexityResult + "\nMoreover it has been leaked before!\nYou should change to a more safe password immediately!", "Password Strength");
         }
 

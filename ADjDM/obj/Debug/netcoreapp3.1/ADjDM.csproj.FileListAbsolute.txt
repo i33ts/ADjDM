@@ -13,3 +13,4 @@ C:\Users\Ilias\Source\Repos\ADjDM\ADjDM\obj\Debug\netcoreapp3.1\ADjDM.pdb
 C:\Users\Ilias\Source\Repos\ADjDM\ADjDM\obj\Debug\netcoreapp3.1\ADjDM.genruntimeconfig.cache
 C:\Users\Ilias\source\repos\ADjDM\ADjDM\obj\Debug\netcoreapp3.1\ADjDM.Properties.Resources.resources
 C:\Users\Ilias\source\repos\ADjDM\ADjDM\obj\Debug\netcoreapp3.1\ADjDM.csproj.GenerateResource.cache
+C:\Users\Ilias\Source\Repos\ADjDM\ADjDM\obj\Debug\netcoreapp3.1\ADjDM.csproj.AssemblyReference.cache
