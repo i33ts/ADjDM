@@ -73,7 +73,7 @@ namespace ADjDM
             if (passComplexityScore <= 2 && !hasBeenPawned)
                 MessageBox.Show("Your passwords strength is: " + complexityResult + "\nIt hasn't been leaked before.\nYou should change to a more complex password.", "Password Strength");
             if (passComplexityScore > 2 && hasBeenPawned)
-                MessageBox.Show("Your passwords strength is: " + complexityResult + "\nAlthough it has been leaked before!\nYou should change to a more safe password.", "Password Strength");
+                MessageBox.Show("Your passwords strength is: " + complexityResult + "\nHowever, it has been leaked before!\nYou should change to a more safe password.", "Password Strength");
             if (passComplexityScore <= 2 && hasBeenPawned)
                 MessageBox.Show("Your passwords strength is: " + complexityResult + "\nMoreover it has been leaked before!\nYou should change to a more safe password immediately!", "Password Strength");
         }
