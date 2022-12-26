@@ -69,7 +69,7 @@ namespace ADjDM
                 ToolStripMenuItem connectivityMenu = new ToolStripMenuItem();
                 connectivityMenu.Text = "Connectivity";
                 connectivityMenu.Image = Resources.connectivity.ToBitmap();
-                connectivityMenu.DropDownItems.Add("Check Internet Health", Resources.internet.ToBitmap());
+                connectivityMenu.DropDownItems.Add("Check Internet Health", Resources.internet.ToBitmap(), this.CheckInternetHealth_Click);
                     //Connectivity Sub-Menu
                     ToolStripMenuItem connectivitysubMenu = new ToolStripMenuItem();
                     connectivitysubMenu.Text = "Check Network Health";
@@ -79,7 +79,7 @@ namespace ADjDM
                     connectivitysubMenu.DropDownItems.Add("Packet Retransmissions", Resources.retransmit.ToBitmap());
                 connectivityMenu.DropDownItems.Add(connectivitysubMenu);
                 connectivityMenu.DropDownItems.Add("Enable/Disable Proxy", Resources.proxy.ToBitmap());
-                connectivityMenu.DropDownItems.Add("Concurrent WiFi/Ethernet Indicator", Resources.multicon.ToBitmap());
+                connectivityMenu.DropDownItems.Add("Concurrent WiFi/Ethernet Indicator", Resources.multicon.ToBitmap(), this.CheckConcurrent_Click);
                 // Assistance Menu
                 ToolStripMenuItem assistanceMenu = new ToolStripMenuItem();
                 assistanceMenu.Text = "Assistance";
@@ -167,6 +167,16 @@ namespace ADjDM
                 ExecuteCommandSync(@"systeminfo");
             }
 
+            void CheckInternetHealth_Click(object sender, EventArgs e) 
+            {
+                Connectivity.CheckInternetHealth();
+            }
+
+            void CheckConcurrent_Click(object sender, EventArgs e) 
+            {
+                Connectivity.CheckConcurrentNICsUp();
+            }
+
             /// <span class="code-SummaryComment"><summary></span>
             /// Executes a shell command synchronously.
             /// <span class="code-SummaryComment"></summary></span>
@@ -199,9 +209,9 @@ namespace ADjDM
                     string error = proc.StandardError.ReadToEnd();
                     // Display the command output.
                     if (result != String.Empty)
-                        MessageBox.Show(result, "Success Message");
+                        MessageBox.Show(result);
                     else
-                        MessageBox.Show(error, "Failure Message");
+                        MessageBox.Show(error);
                 }
                 catch (Exception objException)
                 {
