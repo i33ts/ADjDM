@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Ilias\\source\\repos\\ADjDM\\ADjDM\\ADjDM.csproj": {}
+    "C:\\Users\\Ilias\\Source\\Repos\\ADjDM\\ADjDM\\ADjDM.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Ilias\\source\\repos\\ADjDM\\ADjDM\\ADjDM.csproj": {
+    "C:\\Users\\Ilias\\Source\\Repos\\ADjDM\\ADjDM\\ADjDM.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Ilias\\source\\repos\\ADjDM\\ADjDM\\ADjDM.csproj",
+        "projectUniqueName": "C:\\Users\\Ilias\\Source\\Repos\\ADjDM\\ADjDM\\ADjDM.csproj",
         "projectName": "ADjDM",
-        "projectPath": "C:\\Users\\Ilias\\source\\repos\\ADjDM\\ADjDM\\ADjDM.csproj",
+        "projectPath": "C:\\Users\\Ilias\\Source\\Repos\\ADjDM\\ADjDM\\ADjDM.csproj",
         "packagesPath": "C:\\Users\\Ilias\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Ilias\\source\\repos\\ADjDM\\ADjDM\\obj\\",
+        "outputPath": "C:\\Users\\Ilias\\Source\\Repos\\ADjDM\\ADjDM\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Ilias\\AppData\\Roaming\\NuGet\\NuGet.Config",
