@@ -173,6 +173,7 @@ namespace ADjDM
             void CheckWindowsHealth_Click(object sender, EventArgs e)
             {
                 //Change Application icon to executing gif
+                //Change execution to output only. Export message to each class separately
                 SetBalloonTip("Windows Health Check", "This process might take a while... \nWhen it is finished, a message box will come up with the health check results!");
                 trayIcon.ShowBalloonTip(1500);
                 ExecuteCommandAsync(@"sfc /scannow");
@@ -221,7 +222,7 @@ namespace ADjDM
                     // Display the command output.
                     if (result != string.Empty)
                     {
-                        MessageBox.Show(result);
+                        MessageBox.Show(result.Replace("\0", ""));
                     }
                     else
                         MessageBox.Show(error);
