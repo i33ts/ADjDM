@@ -4,6 +4,7 @@ using System.Windows.Forms;
 using System.Net;
 using System.Drawing;
 using System.Threading;
+using System.Security.Permissions;
 
 namespace ADjDM
 {
@@ -42,7 +43,7 @@ namespace ADjDM
                 computerMenu.Text = "Computer";
                 computerMenu.Image = Resources.computers.ToBitmap();
                 computerMenu.DropDownItems.Add("Check Domain Trust", Resources.domain.ToBitmap(), this.CheckDomainTrust_Click);
-                computerMenu.DropDownItems.Add("Check Windows Health", Resources.windows.ToBitmap());
+                computerMenu.DropDownItems.Add("Check Windows Health", Resources.windows.ToBitmap(), this.CheckWindowsHealth_Click);
                 computerMenu.DropDownItems.Add("Check Disks Health", Resources.harddisk.ToBitmap());
                 computerMenu.DropDownItems.Add("List System Information", Resources.info.ToBitmap(), this.ListSystemInfo_Click);
                 computerMenu.DropDownItems.Add("List Installed Software", Resources.software.ToBitmap());
@@ -167,6 +168,11 @@ namespace ADjDM
                 ExecuteCommandSync(@"systeminfo");
             }
 
+            void CheckWindowsHealth_Click(object sender, EventArgs e)
+            {
+                ExecuteCommandAsync(@"sfc /scannow");
+            }
+
             void CheckInternetHealth_Click(object sender, EventArgs e) 
             {
                 Connectivity.CheckInternetHealth();
@@ -208,14 +214,16 @@ namespace ADjDM
                     string result = proc.StandardOutput.ReadToEnd();
                     string error = proc.StandardError.ReadToEnd();
                     // Display the command output.
-                    if (result != String.Empty)
+                    if (result != string.Empty)
+                    {
                         MessageBox.Show(result);
+                    }
                     else
                         MessageBox.Show(error);
                 }
                 catch (Exception objException)
                 {
-                    // Log the exception
+                    MessageBox.Show(objException.Message);
                 }
             }
 

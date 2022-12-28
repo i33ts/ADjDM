@@ -1,0 +1,5 @@
+C:\Users\Ilias\Source\Repos\ADjDM\ADjDM\bin\Release\netcoreapp3.1\publish\ADjDM.exe
+C:\Users\Ilias\Source\Repos\ADjDM\ADjDM\bin\Release\netcoreapp3.1\publish\ADjDM.dll
+C:\Users\Ilias\Source\Repos\ADjDM\ADjDM\bin\Release\netcoreapp3.1\publish\ADjDM.deps.json
+C:\Users\Ilias\Source\Repos\ADjDM\ADjDM\bin\Release\netcoreapp3.1\publish\ADjDM.runtimeconfig.json
+C:\Users\Ilias\Source\Repos\ADjDM\ADjDM\bin\Release\netcoreapp3.1\publish\ADjDM.pdb
