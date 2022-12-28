@@ -5,6 +5,7 @@ using System.Net;
 using System.Drawing;
 using System.Threading;
 using System.Security.Permissions;
+using System.Net.NetworkInformation;
 
 namespace ADjDM
 {
@@ -160,7 +161,8 @@ namespace ADjDM
 
             void CheckDomainTrust_Click(object sender, EventArgs e) 
             {
-                ExecuteCommandSync(@"NLTEST /SC_VERIFY:VIANEX.LOCAL");
+                string domain = IPGlobalProperties.GetIPGlobalProperties().DomainName;
+                ExecuteCommandSync(@"NLTEST /SC_VERIFY:" + domain);
             }
 
             void ListSystemInfo_Click(object sender, EventArgs e) 
@@ -170,6 +172,9 @@ namespace ADjDM
 
             void CheckWindowsHealth_Click(object sender, EventArgs e)
             {
+                //Change Application icon to executing gif
+                SetBalloonTip("Windows Health Check", "This process might take a while... \nWhen it is finished, a message box will come up with the health check results!");
+                trayIcon.ShowBalloonTip(1500);
                 ExecuteCommandAsync(@"sfc /scannow");
             }
 
@@ -256,6 +261,15 @@ namespace ADjDM
                 {
                     // Log the exception
                 }
+            }
+
+            private void SetBalloonTip(string btitle, string btext)
+            {
+                //optionally change tray icon
+                //trayIcon.Icon = SystemIcons.Information;
+                trayIcon.BalloonTipTitle = btitle;
+                trayIcon.BalloonTipText = btext;
+                trayIcon.BalloonTipIcon = ToolTipIcon.Info;
             }
         }
     }
