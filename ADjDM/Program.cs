@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Threading;
 using System.Security.Permissions;
 using System.Net.NetworkInformation;
+using System.Text.RegularExpressions;
 
 namespace ADjDM
 {
@@ -26,6 +27,7 @@ namespace ADjDM
         public class MyCustomApplicationContext : ApplicationContext
         {
             private NotifyIcon trayIcon;
+            public string output;
 
             public MyCustomApplicationContext()
             {
@@ -163,20 +165,26 @@ namespace ADjDM
             {
                 string domain = IPGlobalProperties.GetIPGlobalProperties().DomainName;
                 ExecuteCommandSync(@"NLTEST /SC_VERIFY:" + domain);
+                MessageBox.Show(output, "Check Domain Trust Result");
             }
 
             void ListSystemInfo_Click(object sender, EventArgs e) 
             {
                 ExecuteCommandSync(@"systeminfo");
+                MessageBox.Show(output, "System Information");
             }
 
             void CheckWindowsHealth_Click(object sender, EventArgs e)
             {
-                //Change Application icon to executing gif
-                //Change execution to output only. Export message to each class separately
                 SetBalloonTip("Windows Health Check", "This process might take a while... \nWhen it is finished, a message box will come up with the health check results!");
                 trayIcon.ShowBalloonTip(1500);
-                ExecuteCommandAsync(@"sfc /scannow");
+                ExecuteCommandSync(@"sfc /scannow");
+                //normalize output
+                output = output.Replace("\0", "").Replace("\r", "").Replace("\n", "");
+                Regex rx = new Regex(@"Windows.*");
+                Match resultMatch = rx.Match(output);
+                output = resultMatch.Value;
+                MessageBox.Show(output, "Windows Health Results");
             }
 
             void CheckInternetHealth_Click(object sender, EventArgs e) 
@@ -221,15 +229,13 @@ namespace ADjDM
                     string error = proc.StandardError.ReadToEnd();
                     // Display the command output.
                     if (result != string.Empty)
-                    {
-                        MessageBox.Show(result.Replace("\0", ""));
-                    }
+                        output = result;
                     else
-                        MessageBox.Show(error);
+                        output =  error;
                 }
                 catch (Exception objException)
                 {
-                    MessageBox.Show(objException.Message);
+                    output =  objException.Message;
                 }
             }
 
