@@ -7,6 +7,7 @@ using System.Threading;
 using System.Security.Permissions;
 using System.Net.NetworkInformation;
 using System.Text.RegularExpressions;
+using Microsoft.Win32;
 
 namespace ADjDM
 {
@@ -28,6 +29,7 @@ namespace ADjDM
         {
             private NotifyIcon trayIcon;
             public string output;
+            public string domain = IPGlobalProperties.GetIPGlobalProperties().DomainName;
 
             public MyCustomApplicationContext()
             {
@@ -49,7 +51,7 @@ namespace ADjDM
                 computerMenu.DropDownItems.Add("Check Windows Health", Resources.windows.ToBitmap(), this.CheckWindowsHealth_Click);
                 computerMenu.DropDownItems.Add("Check Disks Health", Resources.harddisk.ToBitmap());
                 computerMenu.DropDownItems.Add("List System Information", Resources.info.ToBitmap(), this.ListSystemInfo_Click);
-                computerMenu.DropDownItems.Add("List Installed Software", Resources.software.ToBitmap());
+                computerMenu.DropDownItems.Add("List Installed Software", Resources.software.ToBitmap(), this.ListInstalledSoftware_Click);
                 // Services Menu
                 ToolStripMenuItem servicesMenu = new ToolStripMenuItem();
                 servicesMenu.Text = "Services";
@@ -98,6 +100,12 @@ namespace ADjDM
                 contextMenuStrip.Items.Add(connectivityMenu);
                 contextMenuStrip.Items.Add(assistanceMenu);
                 contextMenuStrip.Items.Add("Exit", null, this.Exit_Click);
+
+                // Throw you are not part of a domain warning
+                if (domain == string.Empty) 
+                {
+                    MessageBox.Show("Your computer is not domain joined.\nDue to that, there are some functions that will not work as expected", "ADjDM: Not part of a domain!");
+                }
 
                 // Initialize Tray Icon
                 trayIcon = new NotifyIcon()
@@ -163,20 +171,22 @@ namespace ADjDM
 
             void CheckDomainTrust_Click(object sender, EventArgs e) 
             {
-                string domain = IPGlobalProperties.GetIPGlobalProperties().DomainName;
                 ExecuteCommandSync(@"NLTEST /SC_VERIFY:" + domain);
-                MessageBox.Show(output, "Check Domain Trust Result");
+                MessageBox.Show(output, "ADjDM: Check Domain Trust Result");
             }
 
             void ListSystemInfo_Click(object sender, EventArgs e) 
             {
                 ExecuteCommandSync(@"systeminfo");
-                MessageBox.Show(output, "System Information");
+                ReportForm rep = new ReportForm();
+                rep.ReportTitle = "ADjDM: System Information";
+                rep.ReportTextbox = output;
+                rep.Show();
             }
 
             void CheckWindowsHealth_Click(object sender, EventArgs e)
             {
-                SetBalloonTip("Windows Health Check", "This process might take a while... \nWhen it is finished, a message box will come up with the health check results!");
+                SetBalloonTip("Windows Health Check", "ADjDM: This process might take a while... \nWhen it is finished, a message box will come up with the health check results!");
                 trayIcon.ShowBalloonTip(1500);
                 ExecuteCommandSync(@"sfc /scannow");
                 //normalize output
@@ -184,7 +194,7 @@ namespace ADjDM
                 Regex rx = new Regex(@"Windows.*");
                 Match resultMatch = rx.Match(output);
                 output = resultMatch.Value;
-                MessageBox.Show(output, "Windows Health Results");
+                MessageBox.Show(output, "ADjDM: Windows Health Results");
             }
 
             void CheckInternetHealth_Click(object sender, EventArgs e) 
@@ -195,6 +205,29 @@ namespace ADjDM
             void CheckConcurrent_Click(object sender, EventArgs e) 
             {
                 Connectivity.CheckConcurrentNICsUp();
+            }
+
+            void ListInstalledSoftware_Click(object sender, EventArgs e) 
+            {
+                string software = string.Empty;
+                string registry_key = @"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall";
+                using (Microsoft.Win32.RegistryKey key = Registry.LocalMachine.OpenSubKey(registry_key))
+                {
+                    foreach (string subkey_name in key.GetSubKeyNames())
+                    {
+                        using (RegistryKey subkey = key.OpenSubKey(subkey_name))
+                        {
+                            if (subkey.GetValue("DisplayName") != null)
+                            {
+                                software = software + "\n" + subkey.GetValue("DisplayName");
+                            }
+                        }
+                    }
+                }
+                ReportForm rep = new ReportForm();
+                rep.ReportTitle = "ADjDM: Installed Software List";
+                rep.ReportTextbox = software;
+                rep.Show();
             }
 
             /// <span class="code-SummaryComment"><summary></span>

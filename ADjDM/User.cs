@@ -8,6 +8,7 @@ using System.Net;
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Security.Claims;
+using System.DirectoryServices;
 
 namespace ADjDM
 {
@@ -15,7 +16,32 @@ namespace ADjDM
     {
         public static void CheckPasswordHealth()
         {
-            MessageBox.Show("Your passwords health is ok!", "Password Health");
+            string user = WindowsIdentity.GetCurrent().Name;
+            string username = user.Split('\\')[1];
+            string domain = user.Split('\\')[0];
+            try
+            {
+                DateTime expDate = GetPasswordExpirationDate(username, domain);
+                if (expDate != null)
+                {
+                    if (expDate > DateTime.Now)
+                    {
+                        MessageBox.Show(("Your password looks healthy.\nYour password expiration date is: " + expDate.ToString()), "ADjDM: Password Health Result");
+                    }
+                    else 
+                    {
+                       MessageBox.Show("Your password seems to have \"never expire\" policy enabled!\nYou should contact IT department for further info!", "ADjDM: Password Health Result");
+                    }
+                }
+                else 
+                {
+                    MessageBox.Show("There is a problem with your password!\nYour password expiration date appears to be empty.\nYou should contact IT department for further info!", "ADjDM: Password Health Result");
+                }
+            }
+            catch 
+            {
+                MessageBox.Show("There is a problem with your password! Either:\n1.Your password has expired or\n2.Your computer has lost AD trust.\nYou should contact IT department for further info!", "ADjDM: Password Health Result");
+            }
         }
 
         public static void CheckLocalAdmin()
@@ -27,9 +53,9 @@ namespace ADjDM
                 List<Claim> list = new List<Claim>(principal.UserClaims);
                 Claim c = list.Find(p => p.Value.Contains("S-1-5-32-544"));
                 if (c != null)
-                    MessageBox.Show("Current user is Local Admin!", "Check Local Admin");
+                    MessageBox.Show("Current user is Local Admin!", "ADjDM: Check Local Admin");
                 else
-                    MessageBox.Show("Current user is Not Local Admin!", "Check Local Admin");
+                    MessageBox.Show("Current user is Not Local Admin!", "ADjDM: Check Local Admin");
             }
         }
 
@@ -69,13 +95,13 @@ namespace ADjDM
                 complexityResult = "Excellent";
 
             if (passComplexityScore > 2 && !hasBeenPawned)
-                MessageBox.Show("Your passwords strength is: " + complexityResult + "\nIt hasn't been leaked before.\nIt is safe to keep your password.", "Password Strength");
+                MessageBox.Show("Your passwords strength is: " + complexityResult + "\nIt hasn't been leaked before.\nIt is safe to keep your password.", "ADjDM: Password Strength");
             if (passComplexityScore <= 2 && !hasBeenPawned)
-                MessageBox.Show("Your passwords strength is: " + complexityResult + "\nIt hasn't been leaked before.\nYou should change to a more complex password.", "Password Strength");
+                MessageBox.Show("Your passwords strength is: " + complexityResult + "\nIt hasn't been leaked before.\nYou should change to a more complex password.", "ADjDM: Password Strength");
             if (passComplexityScore > 2 && hasBeenPawned)
-                MessageBox.Show("Your passwords strength is: " + complexityResult + "\nHowever, it has been leaked before!\nYou should change to a more safe password.", "Password Strength");
+                MessageBox.Show("Your passwords strength is: " + complexityResult + "\nHowever, it has been leaked before!\nYou should change to a more safe password.", "ADjDM: Password Strength");
             if (passComplexityScore <= 2 && hasBeenPawned)
-                MessageBox.Show("Your passwords strength is: " + complexityResult + "\nMoreover it has been leaked before!\nYou should change to a more safe password immediately!", "Password Strength");
+                MessageBox.Show("Your passwords strength is: " + complexityResult + "\nMoreover it has been leaked before!\nYou should change to a more safe password immediately!", "ADjDM: Password Strength");
         }
 
         private static int CheckComplexity(string password)
@@ -118,5 +144,13 @@ namespace ADjDM
             }
         }
 
+        private static DateTime GetPasswordExpirationDate(string userId, string domainOrMachineName)
+        {
+            using (var userEntry = new DirectoryEntry("WinNT://" + domainOrMachineName + '/' + userId + ",user"))
+            {
+                string dateTimeStr = userEntry.InvokeGet("PasswordExpirationDate").ToString();
+                return DateTime.Parse(dateTimeStr);
+            }
+        }
     }
 }

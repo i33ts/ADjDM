@@ -17,19 +17,19 @@ namespace ADjDM
             canResolve = DoGetHostEntry("www.google.com");
             if (canPing && canResolve)
             {
-                MessageBox.Show("Internet works Great!", "Internet Check Successful");
+                MessageBox.Show("Internet works Great!", "ADjDM: Internet Check Successful");
             }
             else if (canPing && !canResolve)
             {
-                MessageBox.Show("DNS Error!", "Internet Check Failed");
+                MessageBox.Show("DNS Error!", "ADjDM: Internet Check Failed");
             }
             else if (!canPing && canResolve)
             {
-                MessageBox.Show("Ping Error!", "Internet Check Failed");
+                MessageBox.Show("Ping Error!", "ADjDM: Internet Check Failed");
             }
             else 
             {
-                MessageBox.Show("Generic Error! No Internet Connection Present.", "Internet Check Failed");
+                MessageBox.Show("Generic Error! No Internet Connection Present.", "ADjDM: Internet Check Failed");
             }
         }
 
@@ -44,7 +44,7 @@ namespace ADjDM
                     NICsUP += " - " + networkCard.Description + "\n";
                 }
             }
-            MessageBox.Show(NICsUP, "Connected NICs");
+            MessageBox.Show(NICsUP, "ADjDM: Connected NICs");
         }
 
         public static bool PingHost(string nameOrAddress)
