@@ -1,3 +1,9 @@
 is_global = true
+build_property.ApplicationManifest = Properties\app.manifest
+build_property.StartupObject = 
+build_property.ApplicationDefaultFont = 
+build_property.ApplicationHighDpiMode = 
+build_property.ApplicationUseCompatibleTextRendering = 
+build_property.ApplicationVisualStyles = 
 build_property.RootNamespace = ADjDM
-build_property.ProjectDir = C:\Users\Ilias\Source\Repos\ADjDM\ADjDM\
+build_property.ProjectDir = C:\Users\tsouk33\Documents\GitHub\ADjDM\ADjDM\

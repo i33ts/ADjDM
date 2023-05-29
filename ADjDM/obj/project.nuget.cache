@@ -1,8 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "Ou3FflQX9AzYt+kXgMX16xe93pjdIq4swqsqr8SBDB9Vr9CnQMUXeLgODBGTfiUjaEesMPMl8I6eDOVFSArt+A==",
+  "dgSpecHash": "smKbzz+p7CBZiOvuYsgdaDur9+0MrZPbxeLX9DUBt4Qto5JzgI/RDTrfh/6acs+ebfSr7gURJp+Wnm9YDdEr0g==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Ilias\\Source\\Repos\\ADjDM\\ADjDM\\ADjDM.csproj",
-  "expectedPackageFiles": [],
+  "projectFilePath": "C:\\Users\\tsouk33\\Documents\\GitHub\\ADjDM\\ADjDM\\ADjDM.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\tsouk33\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\3.1.0\\microsoft.windowsdesktop.app.ref.3.1.0.nupkg.sha512",
+    "C:\\Users\\tsouk33\\.nuget\\packages\\microsoft.netcore.app.ref\\3.1.0\\microsoft.netcore.app.ref.3.1.0.nupkg.sha512",
+    "C:\\Users\\tsouk33\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\3.1.10\\microsoft.aspnetcore.app.ref.3.1.10.nupkg.sha512",
+    "C:\\Users\\tsouk33\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\3.1.32\\microsoft.netcore.app.host.win-x64.3.1.32.nupkg.sha512"
+  ],
   "logs": []
 }
