@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Ilias\\Source\\Repos\\ADjDM\\ADjDM\\ADjDM.csproj",
+      "projectUniqueName": "C:\\Users\\Ilias\\Documents\\GitHub\\ADjDM\\ADjDM\\ADjDM.csproj",
       "projectName": "ADjDM",
-      "projectPath": "C:\\Users\\Ilias\\Source\\Repos\\ADjDM\\ADjDM\\ADjDM.csproj",
+      "projectPath": "C:\\Users\\Ilias\\Documents\\GitHub\\ADjDM\\ADjDM\\ADjDM.csproj",
       "packagesPath": "C:\\Users\\Ilias\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Ilias\\Source\\Repos\\ADjDM\\ADjDM\\obj\\",
+      "outputPath": "C:\\Users\\Ilias\\Documents\\GitHub\\ADjDM\\ADjDM\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Ilias\\AppData\\Roaming\\NuGet\\NuGet.Config",
